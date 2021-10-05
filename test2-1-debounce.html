@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>test2-1 debounce</title>
+  </head>
+  <body style="height: 200vh">
+    <script>
+      /* 實作 Debounce */
+      const debounceFunc = function debounce(func, delay = 250) {
+        let timer = null;
+
+        return function () {
+          let context = this;
+          let args = arguments;
+          clearTimeout(timer);
+
+          // handleScroll 執行完，0.5秒後才能再次執行
+          timer = setTimeout(() => {
+            func.apply(context, args);
+          }, delay);
+        };
+      };
+
+      // 捲動以示 debounce 特性，不會浪費效能
+      function handleScroll() {
+        console.log(window.scrollY);
+      }
+      window.addEventListener('scroll', debounceFunc(handleScroll, 500));
+    </script>
+  </body>
+</html>

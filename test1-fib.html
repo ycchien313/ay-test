@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>test1 fib</title>
+  </head>
+  <body>
+    <script>
+      /* 實作 Fibonacci number (費式數列)*/
+      function fibRec(position) {
+        if (position < 2) return position;
+        return fibRec(position - 1) + fibRec(position - 2);
+      }
+
+      let position = 30;
+      // let startTime = new Date().getTime();
+      let result = `fibonacci(${position}) ${fibRec(position)}`;
+      console.log(result);
+
+      // let endTime = new Date().getTime();
+      // let diff = `${(endTime - startTime) / 1000} 秒`;
+      // console.log(diff);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>test4 pagination</title>
+  </head>
+  <body>
+    <script>
+      /* 實作 getPagination */
+      const getPagination = (offset, limit, total) => {
+        // 取得起始頁碼
+        const getStartPage = () => {
+          // 計算起始頁碼，將頁籤數5 多出來的，加至起始頁碼
+          /* ex. 4 + 4 - 6 = 2
+             當下頁碼 + 範圍頁碼 - 總頁碼 
+             p.s. -1 為將多扣掉的頁碼去掉 */
+          let start = currentPage + (rangePage - 1) - (totalPage - 1);
+
+          // 判斷起始頁碼是否大於 1
+          if (start > 1) {
+            // 判斷起始頁碼是否大於欲顯示之頁籤數(5)
+            /* 以總共 7 頁為例，當起始頁碼 > 3，則 return 3
+               <= 3，則 retrun startPage */
+            return start > totalPage - (rangePage - 1)
+              ? totalPage - (rangePage - 1)
+              : start;
+          }
+
+          return 1;
+        };
+        // 取得欲顯示的頁碼
+        const getRenderPages = () => {
+          let render = [];
+
+          // 將要 render 的頁碼 push 至 render
+          for (let i = startPage; i < startPage + rangePage; i++) {
+            render.push(i);
+          }
+
+          return render;
+        };
+
+        // 當下頁碼
+        let currentPage = Math.floor(offset / limit) + 1;
+        // 總頁數
+        let totalPage = Math.ceil(total / limit);
+        // 欲顯示之頁籤數
+        let rangePage = 5;
+        // 起始頁碼
+        let startPage = getStartPage();
+        // 欲顯示之頁碼
+        let renderPages = getRenderPages();
+
+        return {
+          currentPage: currentPage,
+          totalPage: totalPage,
+          renderPages: renderPages,
+        };
+      };
+
+      const { currentPage, totalPage, renderPages } = getPagination(0, 5, 33);
+      // const { currentPage, totalPage, renderPages } = getPagination(5, 5, 33);
+      // const { currentPage, totalPage, renderPages } = getPagination(10, 5, 33);
+      // const { currentPage, totalPage, renderPages } = getPagination(15, 5, 33);
+      // const { currentPage, totalPage, renderPages } = getPagination(20, 5, 33);
+      // const { currentPage, totalPage, renderPages } = getPagination(25, 5, 33);
+      // const { currentPage, totalPage, renderPages } = getPagination(30, 5, 33);
+
+      console.log(`currentPage: ${currentPage}`);
+      console.log(`totalPage: ${totalPage}`);
+      console.log(`renderPages: ${renderPages}`);
+    </script>
+  </body>
+</html>

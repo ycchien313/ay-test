@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>test3 stack</title>
+  </head>
+  <body>
+    <script>
+      /* 使用 Linked List 實作 Stack */
+      /* push()、pop()、size */
+
+      /* Node 型態 */
+      class Node {
+        constructor(data) {
+          this.data = data;
+          this.next = null;
+        }
+      }
+
+      /* LinkedList 型態 */
+      class LinkedList {
+        constructor() {
+          this.head = null;
+          this.length = 0;
+        }
+
+        // 加入新節點(節點資料)
+        append(data) {
+          let newNode = new Node(data);
+
+          // 空節點(初始化 LinkedList)
+          if (this.head === null) {
+            this.head = newNode;
+          }
+          // 已經有節點
+          else {
+            let current = this.head;
+            while (current.next != null) {
+              current = current.next;
+            }
+            current.next = newNode;
+          }
+
+          this.length++;
+        }
+
+        // 刪除節點(刪除位置)
+        removeAt(removeIndex) {
+          if (removeIndex < 0 || removeIndex >= this.length) return;
+
+          let current = this.head;
+          // 欲刪除第一個頭節點
+          if (removeIndex === 0) {
+            this.head = current.next;
+          }
+          // 欲刪除其他節點
+          else {
+            let currentIndex = 0;
+            let previous;
+
+            while (removeIndex !== currentIndex) {
+              currentIndex++;
+              previous = current;
+              current = current.next;
+            }
+            previous.next = current.next;
+          }
+
+          this.length--;
+        }
+
+        // LinkedList 長度
+        size() {
+          return this.length;
+        }
+      }
+
+      /* Stack 型態 */
+      class Stack {
+        constructor() {
+          this.linkedList = new LinkedList();
+        }
+
+        push(data) {
+          this.linkedList.append(data);
+        }
+
+        pop() {
+          let index = this.linkedList.size() - 1;
+          this.linkedList.removeAt(index);
+        }
+
+        size() {
+          return this.linkedList.size();
+        }
+      }
+
+      // let linkedList = new LinkedList();
+      // linkedList.append('第1個');
+      // linkedList.append('第2個');
+      // linkedList.append('第3個');
+      // linkedList.removeAt(linkedList.size() - 1);
+      // console.log(linkedList);
+      // console.log(linkedList.size());
+
+      const myStack = new Stack();
+      myStack.push(1);
+      myStack.push(2);
+      myStack.push(3);
+      myStack.pop();
+      console.log('myStack:', myStack);
+      console.log(`myStack size: ${myStack.size()}`);
+    </script>
+  </body>
+</html>
